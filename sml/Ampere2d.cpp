@@ -1,18 +1,38 @@
 #include <iostream>
 #include <cmath>
+#include <vector>
 
-struct Vector2D { double bx, by; };
+using namespace std;
 
-Vector2D calculateB2D(double I, double x, double y) {
-    const double mu0 = 4 * M_PI * 1e-7;
-    double r = std::sqrt(x*x + y*y);
-    double magnitude = (mu0 * I) / (2 * M_PI * r);
-    
-    // The field is perpendicular to the radius vector (-y, x)
-    return { -magnitude * (y / r), magnitude * (x / r) };
-}
 
 int main() {
-    Vector2D field = calculateB2D(10.0, 0.03, 0.04);
-    std::cout << "2D B-Field: (" << field.bx << ", " << field.by << ") T" << std::endl;
+    
+    const double mu_0 = 4.0 * M_PI * 1e-7; 
+    double h = 0.01;                   
+
+    
+    
+    
+    double By_right = 0.0030; 
+    double By_left  = 0.0010;
+
+
+    double Bx_up    = 0.0015;
+    double Bx_down  = 0.0025;
+
+    
+    double dBy_dx = (By_right - By_left) / (2 * h);
+    double dBx_dy = (Bx_up - Bx_down) / (2 * h);
+
+    
+    double curl_B_z = dBy_dx - dBx_dy;
+    double Jz = curl_B_z / mu_0;
+
+    
+    cout << "Partial dB_y/dx: " << dBy_dx << " T/m" << endl;
+    cout << "Partial dB_x/dy: " << dBx_dy << " T/m" << endl;
+    cout << "Total Curl (B):  " << curl_B_z << " T/m" << endl;
+    cout << "Current Density (Jz): " << Jz << " A/m^2" << endl;
+
+    return 0;
 }

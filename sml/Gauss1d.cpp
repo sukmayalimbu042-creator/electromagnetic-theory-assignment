@@ -4,7 +4,7 @@ using namespace std;
 int main() {
     int n = 10;
     double dx = 1.0;
-    double rho = 1.0;
+    double lemda = 1.0;
     double eps0 = 1.0;
 
     double E[10];
@@ -12,7 +12,7 @@ int main() {
     E[0] = 0;
 
     for(int i = 1; i < n; i++) {
-        E[i] = E[i-1] + (rho/eps0)*dx;
+        E[i] = E[i-1] + (lemda/eps0)*dx;
     }
 
     for(int i = 0; i < n; i++) {
